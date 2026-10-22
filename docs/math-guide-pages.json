@@ -1,0 +1,181 @@
+{
+  "title": "F1 Driver DNA Mathematics Guide",
+  "pages": [
+    {
+      "page": 1,
+      "title": "Mathematics you can see, understand and teach"
+    },
+    {
+      "page": 2,
+      "title": "Your learning route"
+    },
+    {
+      "page": 3,
+      "title": "The whole story in one picture"
+    },
+    {
+      "page": 4,
+      "title": "Small maths tools you already know"
+    },
+    {
+      "page": 5,
+      "title": "Read symbols like little name tags"
+    },
+    {
+      "page": 6,
+      "title": "Meet the five channels"
+    },
+    {
+      "page": 7,
+      "title": "Put both drivers at the same places"
+    },
+    {
+      "page": 8,
+      "title": "X: the big table of measurements"
+    },
+    {
+      "page": 9,
+      "title": "Mean: find the shared middle"
+    },
+    {
+      "page": 10,
+      "title": "Standard deviation: a ruler for spread"
+    },
+    {
+      "page": 11,
+      "title": "Z: describe values on fair rulers"
+    },
+    {
+      "page": 12,
+      "title": "What the scaling switch really changes"
+    },
+    {
+      "page": 13,
+      "title": "Covariance: do two channels move together?"
+    },
+    {
+      "page": 14,
+      "title": "Read the covariance graphs in your app"
+    },
+    {
+      "page": 15,
+      "title": "Eigenvectors: directions that stay directions"
+    },
+    {
+      "page": 16,
+      "title": "Eigenvalues and weights in five dimensions"
+    },
+    {
+      "page": 17,
+      "title": "PCA: choose a better view of the cloud"
+    },
+    {
+      "page": 18,
+      "title": "Read the PCA scatter plot"
+    },
+    {
+      "page": 19,
+      "title": "Build one real PCA point by hand"
+    },
+    {
+      "page": 20,
+      "title": "Explained variance: how much view is kept?"
+    },
+    {
+      "page": 21,
+      "title": "SVD: take the table apart and rebuild it"
+    },
+    {
+      "page": 22,
+      "title": "A whole SVD you can multiply yourself"
+    },
+    {
+      "page": 23,
+      "title": "Connect singular values to eigenvalues"
+    },
+    {
+      "page": 24,
+      "title": "Rank: how many patterns do we keep?"
+    },
+    {
+      "page": 25,
+      "title": "Three different reconstruction scores"
+    },
+    {
+      "page": 26,
+      "title": "Curve fitting: a smooth speed summary"
+    },
+    {
+      "page": 27,
+      "title": "Why distance becomes u"
+    },
+    {
+      "page": 28,
+      "title": "Least squares: how the curve is chosen"
+    },
+    {
+      "page": 29,
+      "title": "Read the actual observed-versus-fit graph"
+    },
+    {
+      "page": 30,
+      "title": "Residuals, RMSE and R\u00b2"
+    },
+    {
+      "page": 31,
+      "title": "Every top-level mathematics control"
+    },
+    {
+      "page": 32,
+      "title": "Every walkthrough and inspector control"
+    },
+    {
+      "page": 33,
+      "title": "The four advanced tabs, decoded"
+    },
+    {
+      "page": 34,
+      "title": "Download the evidence and reproduce a row"
+    },
+    {
+      "page": 35,
+      "title": "What actually happens in the backend"
+    },
+    {
+      "page": 36,
+      "title": "Mistakes to catch before teaching others"
+    },
+    {
+      "page": 37,
+      "title": "Your five guided experiments"
+    },
+    {
+      "page": 38,
+      "title": "Check yourself before the answers"
+    },
+    {
+      "page": 39,
+      "title": "Worked answers: measurements to PCA"
+    },
+    {
+      "page": 40,
+      "title": "Worked answers: SVD and fitting"
+    },
+    {
+      "page": 41,
+      "title": "A five-minute explanation you can give"
+    },
+    {
+      "page": 42,
+      "title": "Your pocket dictionary / A to P"
+    },
+    {
+      "page": 43,
+      "title": "Your pocket dictionary / R to Z"
+    },
+    {
+      "page": 44,
+      "title": "Where the examples and explanations come from"
+    }
+  ]
+}

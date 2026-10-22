@@ -10,3 +10,6 @@ __pycache__/
 .pytest_cache/
 dist/
 .DS_Store
+
+# Disposable document rendering and review files
+/tmp/
