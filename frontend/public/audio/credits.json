@@ -1,0 +1,11 @@
+{
+  "title": "Formula 1 racing",
+  "author": "LordFluffeh",
+  "source": "https://freesound.org/people/LordFluffeh/sounds/478546/",
+  "license": "CC0 1.0",
+  "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "originalPreviewUrl": "https://cdn.freesound.org/previews/478/478546_10244830-hq.mp3",
+  "file": "/audio/f1-brands-hatch.mp3",
+  "description": "Uploader-described trackside Formula 1 recording at Brands Hatch, uploaded 2019. Not audio from the selected race or driver.",
+  "changes": "Original preview MP3 retained. The app makes a short crossfaded loop in memory, changes playback rate and gain from telemetry, and adds synthesized brake, wind and shift effects."
+}

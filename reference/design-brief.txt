@@ -1,0 +1,434 @@
+FINAL DESIGN UPDATE: ATTACHED IMAGE IS THE PRIMARY VISUAL REFERENCE
+
+Preserve all previously requested functionality:
+- Real historical FastF1 data.
+- Season, GP, session, driver, and lap selection.
+- The corresponding actual circuit.
+- Two-driver telemetry replay.
+- Lap and sector timing.
+- Interactive telemetry comparisons.
+- PCA, eigenvalues/eigenvectors, SVD, and curve fitting.
+- Honest handling of missing data.
+
+Replace the earlier generic F1-inspired visual direction with the specific card-based design language of the attached screenshot.
+
+REFERENCE HANDLING
+
+Inspect the attached screenshot before implementation.
+
+The reference shows a grid of motorsport driver cards with:
+- Dark brushed-metal or satin-like background.
+- Angular, clipped card corners.
+- Thin, colourful perimeter borders.
+- Team-coloured diagonal graphics behind driver portraits.
+- Large condensed italic numbers.
+- Bold uppercase driver names.
+- Small national flags.
+- Dark nameplates.
+- Coral-red lower statistics panels.
+- Tight, orderly card spacing.
+- Subtle depth and highlights.
+
+Reproduce these visual characteristics closely.
+
+Do not reinterpret this as a generic dashboard with rounded cards, glass panels, purple gradients, or neon effects.
+
+If the image is unavailable in your environment, request that it be attached before claiming visual fidelity. Do not assume a path from another environment exists.
+
+BRANDING AND DATA
+
+Keep the product name:
+F1 DRIVER DNA
+
+Replace “Official Driver Ratings” with:
+CHOOSE YOUR DRIVERS
+
+Supporting text:
+“Select two drivers. Replay their laps. Discover the differences.”
+
+The screenshot is a visual reference, not our data source.
+
+Do not copy:
+- EA Sports branding.
+- F1 25 game branding.
+- “Official” claims.
+- Game ratings.
+- EXP, RAC, AWA, or PAC values.
+- Rating increase/decrease arrows without equivalent verified data.
+
+Replace those areas with useful, real session information.
+
+Use licensed or otherwise permitted driver portraits and flags.
+Do not extract low-resolution portraits from the screenshot.
+Do not fabricate portraits if a real asset is unavailable.
+
+Provide an attractive initials/silhouette fallback.
+
+DRIVER SELECTION — MAIN DESIGN PRIORITY
+
+Replace ordinary driver dropdowns with a visual driver-card grid.
+
+Populate cards from actual participants in the selected session.
+
+Do not hardcode the screenshot’s lineup or team assignments.
+
+Each card should closely follow the reference structure:
+
+TOP / PORTRAIT AREA
+- Large driver portrait.
+- Team-coloured diagonal background.
+- Driver’s racing number in the large numeric position.
+- A small “DRIVER” label rather than a rating label.
+- Angular team-colour border.
+- Restrained metallic highlights.
+
+NAMEPLATE
+- National flag when verified.
+- Driver’s full name in bold uppercase.
+- Team name in smaller readable text.
+- Support long names without clipping.
+
+LOWER STATISTICS STRIP
+Use a coral-red segmented strip inspired by the reference.
+
+Show compact session-based fields such as:
+- Selected lap number.
+- Lap time.
+- Tyre compound.
+
+Use the fastest eligible lap as the initial selected lap when available, and label this clearly.
+
+When no eligible lap exists:
+- Show an unavailable state.
+- Explain the reason.
+- Do not invent a time.
+
+Do not place unrelated career ratings in this strip.
+
+CARD GRID
+
+On wide desktops:
+- Aim for five columns, matching the reference’s visual rhythm.
+- Preserve readable card proportions.
+
+On smaller screens:
+- Reduce the column count.
+- Keep names and timing legible.
+- Use a single column when necessary.
+
+Use a shared card component and design tokens.
+
+Do not shrink the screenshot into a background and overlay invisible click targets.
+
+SELECTION INTERACTION
+
+Provide two explicit slots:
+DRIVER A
+DRIVER B
+
+Workflow:
+1. User activates a slot.
+2. User clicks or keyboard-selects a driver card.
+3. That card fills the active slot.
+4. Automatically advance to the other empty slot.
+5. Show “Compare Selected Laps” once both are valid.
+
+Selected cards show:
+- DRIVER A or DRIVER B badge.
+- Clear border/outline treatment.
+- Checkmark or equivalent non-colour indicator.
+- Assigned comparison colour.
+
+Two drivers from the same team must still have distinct comparison colours.
+
+Prevent selecting the same driver twice.
+Provide remove, replace, and swap actions.
+Preserve selection while opening a lap picker.
+
+HOVER AND FOCUS
+
+Use:
+- Small upward movement.
+- Slight border brightening.
+- Restrained shadow change.
+- Clear keyboard focus.
+
+Avoid dramatic 3D rotation, excessive glow, or continuous animation.
+
+Support reduced-motion preferences.
+
+GP AND SESSION SELECTION
+
+Above the driver grid provide:
+- Season selector.
+- Grand Prix selector.
+- Session selector.
+
+Style controls using the same angular design language.
+
+A GP selection may use a compact circuit card with:
+- Actual event name.
+- Circuit outline when available.
+- Country.
+- Event date.
+- Data availability.
+
+Load options from actual schedule/session information.
+
+Do not hardcode calendars, participants, or team colours.
+
+Changing GP or session must clear incompatible driver/lap selections and previous replay results.
+
+SITE-WIDE DESIGN SYSTEM
+
+Apply the screenshot’s visual language throughout the entire product.
+
+Define shared tokens for:
+- Charcoal and graphite backgrounds.
+- Coral-red action/statistics surfaces.
+- White and muted grey text.
+- Team-colour accents.
+- Angular corner cuts.
+- Thin perimeter borders.
+- Spacing.
+- Typography.
+- Shadows.
+- Hover/focus states.
+
+Use CSS clip-path, masks, or SVG borders where appropriate.
+Keep text and controls inside safe unclipped areas.
+
+Use:
+- A readable condensed display font for headings.
+- A clear body font for explanations.
+- Monospaced or tabular numerals for timing.
+
+Use fonts that are available under suitable licences.
+Do not require proprietary F1 fonts.
+
+Background:
+Create a restrained graphite diagonal texture through CSS or a permitted asset.
+Keep the background subdued behind charts and text.
+
+NAVIGATION
+
+Style the navigation as a compact motorsport header.
+
+Sections:
+- Drivers
+- Track Replay
+- Telemetry
+- Mathematics
+- Methods
+
+Maintain the same typography, border shapes, colours, and spacing across all sections.
+
+Avoid mixing in unrelated component themes.
+
+TRACK REPLAY PAGE
+
+Make the replay look like a companion screen to the driver cards.
+
+Main layout:
+- GP/session header.
+- Large angular circuit panel.
+- Two compact selected-driver cards.
+- Lap and sector timing strip.
+- Playback controls.
+- Telemetry charts below.
+
+Reuse the selected driver-card component in a compact form.
+
+The map panel uses:
+- Dark graphite background.
+- Clear circuit outline.
+- Start/finish marker.
+- Verified corner annotations where available.
+- Distinct driver markers.
+- Consistent comparison colours.
+
+The map must correspond to the selected GP/session data.
+
+Keep the replay driven by actual recorded timestamps.
+
+Default mode:
+“Ghost lap comparison — both selected laps start together.”
+
+Do not label it as actual race positions or genuine overtakes.
+
+Provide:
+- Play/pause.
+- Restart.
+- Playback speed.
+- Timeline scrubber.
+- Replay elapsed time.
+- Accessible keyboard controls.
+
+Animate client-side with requestAnimationFrame.
+Do not call the backend for each frame.
+
+TIMING AND SECTORS
+
+Style timing panels like horizontal extensions of the reference’s lower card strips.
+
+Display:
+- Driver.
+- Selected lap.
+- Official lap time.
+- Sector 1.
+- Sector 2.
+- Sector 3.
+- Estimated comparison delta.
+
+During playback show:
+- Current speed.
+- Throttle.
+- Brake on/off.
+- Gear.
+- RPM.
+- Running elapsed time.
+- Sector progress when supported.
+
+Use fixed-width numerals so values do not jump horizontally.
+
+Keep official recorded timing separate from interpolated replay values.
+
+Do not create three equal-distance sectors.
+Do not confuse marshal sectors with timing sectors.
+
+Show unavailable values honestly.
+
+Use green/purple/yellow only with a defined timing meaning.
+The fastest of two selected sectors must not be labelled session-best unless verified across the session.
+
+TELEMETRY PAGE
+
+Use wide angular panels inspired by the cards.
+
+Provide:
+- Speed versus distance.
+- Throttle versus distance.
+- Brake state versus distance.
+- Gear and RPM.
+- Estimated time difference.
+
+Keep driver colours identical to the selection and replay pages.
+
+Use readable chart backgrounds with limited texture.
+
+Provide:
+- Linked distance selection.
+- Hover details.
+- Replay cursor.
+- Track-section highlighting.
+- Clear units and legends.
+
+MATHEMATICS PAGE
+
+Carry over the same design system.
+
+Use angular module cards:
+1. PCA
+2. Eigenvalues and Eigenvectors
+3. SVD
+4. Curve Fitting
+
+Each module contains:
+- A plain-English explanation.
+- Its input measurements.
+- Interactive controls.
+- Actual calculated output.
+- Interpretation and limitations.
+
+Do not make mathematical plots decorative.
+Prioritise labels and numerical readability.
+
+Keep shared PCA scaling and fitting across both drivers.
+Do not claim PCA identifies driver personality or proves ability.
+
+REAL DATA REQUIREMENTS
+
+All displayed numbers must come from:
+- Recorded session data.
+- Clearly documented calculations.
+- Explicit user settings.
+
+No fake ratings, sample race results, invented lap times, or simulated loading percentages.
+
+Make loading and unavailable states fit the same visual design:
+- Driver-card skeletons.
+- Short factual loading messages.
+- Clear retry controls.
+
+Do not silently substitute another GP, driver, circuit, or lap.
+
+ARCHITECTURE
+
+Use the previously requested:
+- React + TypeScript + Vite frontend.
+- FastAPI backend.
+- FastF1 and Python analysis libraries.
+- Plotly.js analysis charts.
+- Canvas or SVG track replay.
+
+Build reusable components such as:
+- DriverCard
+- DriverSelectionSlot
+- GrandPrixSelector
+- SessionSelector
+- AngularPanel
+- TimingStrip
+- SectorTable
+- TrackReplay
+- PlaybackControls
+- TelemetryChart
+- AnalysisPanel
+- DataStatus
+
+Keep mathematical and telemetry processing separate from UI components.
+
+VISUAL VERIFICATION
+
+Do not stop at a static mockup.
+
+Run the app and inspect:
+- Driver selection.
+- GP selection.
+- Track replay.
+- Telemetry.
+- Mathematics.
+- Loading and error states.
+- Desktop and mobile layouts.
+
+Compare screenshots of the driver grid against the reference.
+
+Check:
+- Card proportions.
+- Angular outlines.
+- Portrait scale.
+- Team-colour backgrounds.
+- Nameplate alignment.
+- Coral statistics strips.
+- Typography.
+- Grid spacing.
+- Background treatment.
+
+Fix inconsistencies before delivery.
+
+Check that long names, missing portraits, unavailable lap times, and same-team selections remain usable.
+
+FINAL ACCEPTANCE
+
+The finished application must:
+1. Closely follow the attached card design.
+2. Use that design consistently throughout the website.
+3. Select actual drivers for the chosen session.
+4. Load the corresponding circuit.
+5. Replay recorded laps with synchronised telemetry.
+6. Display real lap and sector timing.
+7. Preserve all mathematical analysis.
+8. Handle missing data honestly.
+9. Run locally with documented commands.
+
+Do not claim pixel-perfect matching without inspecting the rendered result.
+Report any unavailable reference assets or blocked verification clearly.

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+fastf1==3.9.0a0
+pandas
+numpy
+scipy
+scikit-learn
+pydantic
+httpx
