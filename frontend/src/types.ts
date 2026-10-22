@@ -84,6 +84,25 @@ export interface Comparison {
   source: string;
 }
 export interface Analysis {
+  audit: {
+    raw: number[][];
+    centered: number[][];
+    pca_center: number[];
+    u: number[][];
+    vt: number[][];
+    ranks: { rank: number; relative_error: number; retained_energy: number; reconstructed: number[][]; feature_rmse: number[] }[];
+    aligned_times: number[][];
+    pca_contributions: number[][][];
+    eigen_cv: number[][];
+    eigen_lambda_v: number[][];
+    eigen_residuals: number[];
+    orthogonality_error: number;
+    covariance_ddof: number;
+    standard_deviation_ddof: number;
+    input_counts: number[];
+    source: string;
+    pipeline: string[];
+  };
   distance: number[];
   delta: number[];
   features: string[];

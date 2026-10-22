@@ -24,6 +24,39 @@ def fixture():
 
 
 class NumericalTests(unittest.TestCase):
+    def test_walkthrough_matrices_reproduce_each_returned_calculation(self):
+        result = analyze(fixture(), features=['speed', 'throttle', 'gear'])
+        audit = result['audit']
+        raw, z = np.array(audit['raw']), np.array(audit['centered'])
+        self.assertEqual(raw.shape, (800, 3))
+        np.testing.assert_allclose(z, (raw-result['means'])/result['scales'], atol=1e-12)
+        np.testing.assert_allclose(np.cov(z, rowvar=False), result['covariance'], atol=1e-12)
+        contributions = np.array(audit['pca_contributions'])
+        np.testing.assert_allclose(contributions.sum(axis=2), np.vstack(result['scores']), atol=1e-12)
+        for i in range(3):
+            np.testing.assert_allclose(audit['eigen_cv'][i], audit['eigen_lambda_v'][i], atol=1e-10)
+        u, vt = np.array(audit['u']), np.array(audit['vt'])
+        np.testing.assert_allclose((u*result['singular_values'])@vt, z, atol=1e-12)
+        self.assertEqual(audit['input_counts'], [101, 101])
+        self.assertLess(audit['orthogonality_error'], 1e-12)
+
+    def test_rank_reconstructions_restore_units_and_report_honest_errors(self):
+        for scaled in (True, False):
+            result = analyze(fixture(), scale=scaled)
+            audit = result['audit']
+            raw, z = np.array(audit['raw']), np.array(audit['centered'])
+            previous = float('inf')
+            for record in audit['ranks']:
+                restored = np.array(record['reconstructed'])
+                approximation = (restored-result['means'])/result['scales']
+                error = np.linalg.norm(z-approximation)/np.linalg.norm(z)
+                self.assertAlmostEqual(error, record['relative_error'], places=10)
+                self.assertLessEqual(record['relative_error'], previous+1e-12)
+                self.assertAlmostEqual(record['relative_error']**2, 1-record['retained_energy'], places=10)
+                np.testing.assert_allclose(np.sqrt(np.mean((raw-restored)**2, axis=0)), record['feature_rmse'], atol=1e-10)
+                previous = record['relative_error']
+            np.testing.assert_allclose(audit['ranks'][-1]['reconstructed'], raw, atol=1e-8)
+
     def test_shared_alignment_delta_and_discrete_channels(self):
         distance, arrays = align(fixture())
         self.assertEqual(len(distance),400)

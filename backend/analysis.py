@@ -53,6 +53,27 @@ def analyze(comparison, degree=3, start=0, end=None, scale=True, features=None):
     eigenvalues, eigenvectors = np.linalg.eigh(covariance)
     order = np.argsort(eigenvalues)[::-1]
     reconstructed = (u * singular) @ vt
+    ranks = []
+    for rank in range(1, len(indices)+1):
+        approximation = (u[:, :rank] * singular[:rank]) @ vt[:rank]
+        restored = approximation * (scaler.scale_ if scale else 1) + scaler.mean_
+        ranks.append({'rank': rank, 'relative_error': float(np.linalg.norm(centered-approximation)/np.linalg.norm(centered)),
+                      'retained_energy': float(np.sum(singular[:rank]**2)/np.sum(singular**2)),
+                      'feature_rmse': np.sqrt(np.mean((raw-restored)**2, axis=0)).tolist(),
+                      'reconstructed': restored.tolist()})
+    audit = {'raw': raw.tolist(), 'centered': centered.tolist(), 'pca_center': pca.mean_.tolist(),
+             'u': u.tolist(), 'vt': vt.tolist(), 'ranks': ranks,
+             'aligned_times': [a[:, 0].tolist() for a in aligned],
+             'pca_contributions': ((centered-pca.mean_)[:, None, :] * pca.components_[None, :, :]).tolist(),
+             'eigen_cv': [(covariance @ eigenvectors[:, i]).tolist() for i in order],
+             'eigen_lambda_v': [(eigenvalues[i]*eigenvectors[:, i]).tolist() for i in order],
+             'eigen_residuals': [float(np.linalg.norm(covariance @ eigenvectors[:, i] - eigenvalues[i]*eigenvectors[:, i])) for i in order],
+             'orthogonality_error': float(np.linalg.norm(vt @ vt.T-np.eye(len(indices)))),
+             'covariance_ddof': 1, 'standard_deviation_ddof': 0,
+             'input_counts': [len(t['samples']['time']) for t in comparison['traces']],
+             'source': comparison.get('source', 'Recorded comparison telemetry'),
+             'pipeline': ['backend.analysis.align', 'sklearn.preprocessing.StandardScaler', 'numpy.cov',
+                          'numpy.linalg.eigh', 'sklearn.decomposition.PCA', 'numpy.linalg.svd', 'scipy.optimize.curve_fit']}
     end = float(distance[-1]) if end is None else end
     mask = (distance >= start) & (distance <= end)
     x = distance[mask]
@@ -75,7 +96,7 @@ def analyze(comparison, degree=3, start=0, end=None, scale=True, features=None):
                      'rmse': float(np.sqrt(np.mean(residual**2))),
                      'r_squared': float(1-np.sum(residual**2)/total) if total > 0 else None})
     n = len(distance)
-    return {'distance': distance.tolist(), 'delta': (aligned[1][:,0]-aligned[0][:,0]).tolist(),
+    return {'audit': audit, 'distance': distance.tolist(), 'delta': (aligned[1][:,0]-aligned[0][:,0]).tolist(),
             'features': selected, 'scaled': scale, 'means': scaler.mean_.tolist(),
             'scales': scaler.scale_.tolist() if scale else [1.]*len(indices),
             'sample_count': len(centered), 'explained_variance': pca.explained_variance_ratio_.tolist(),

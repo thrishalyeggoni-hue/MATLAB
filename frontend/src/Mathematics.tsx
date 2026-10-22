@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MathJourney from "./MathJourney";
 import type { Analysis, Selection } from "./types";
 import type { Data } from "plotly.js";
 import Plot from "./Plot";
@@ -38,7 +39,7 @@ export default function Mathematics({
   maxDistance: number;
   onRetry: () => void;
 }) {
-  const [module, setModule] = useState("PCA"),
+  const [module, setModule] = useState("Walkthrough"),
     [pc, setPC] = useState(0);
   const [draft, setDraft] = useState(settings);
   const plotLayout = { ...BASE_LAYOUT, height: 350, showlegend: true };
@@ -86,7 +87,7 @@ export default function Mathematics({
     explanation =
       "Singular value decomposition factors the joint, centred matrix X into UΣVᵀ. The right singular vectors are PCA directions; σ²/(n − 1) gives each covariance eigenvalue.";
     interpretation = `Reconstructing X with all components gives a relative Frobenius error of ${analysis.svd_relative_error.toExponential(2)}. This is a numerical identity check, not a prediction score.`;
-  } else if (analysis) {
+  } else if (analysis && module !== "Walkthrough") {
     data = analysis.fit.drivers.flatMap((fit, i) => [
       {
         x: analysis.fit.distance,
@@ -123,7 +124,7 @@ export default function Mathematics({
   return (
     <div className="math-workspace">
       <div className="math-tabs">
-        {["PCA", "Eigenvalues", "SVD", "Curve fitting"].map((m, i) => (
+        {["Walkthrough", "PCA", "Eigenvalues", "SVD", "Curve fitting"].map((m, i) => (
           <button
             key={m}
             onClick={() => setModule(m)}
@@ -232,7 +233,7 @@ export default function Mathematics({
         </DataStatus>
       )}
       {error && <DataStatus error={error} onRetry={onRetry} />}
-      {analysis && !loading && !error && (
+      {analysis && !loading && !error && (module === "Walkthrough" ? <MathJourney analysis={analysis} selections={selections} /> : (
         <>
           <div className="math-module-head">
             <div>
@@ -408,7 +409,7 @@ export default function Mathematics({
             </AngularPanel>
           </div>
         </>
-      )}
+      ))}
     </div>
   );
 }
