@@ -105,7 +105,7 @@ function App() {
     setSessionName("");
     setSession(null);
     resetSelections();
-    loadJob<Event[]>(`/api/schedule/${year}`, undefined, controller.signal)
+    loadJob<Event[]>(`/api/schedule/${year}`, undefined, controller.signal, 30000)
       .then(({ data }) => {
         setEvents(data);
         const first = data.find(

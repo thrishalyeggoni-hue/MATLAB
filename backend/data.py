@@ -7,6 +7,8 @@ from functools import lru_cache
 from threading import RLock
 from datetime import datetime, timezone
 
+from backend.calendar import event_schedule
+
 import fastf1
 import numpy as np
 import pandas as pd
@@ -27,9 +29,9 @@ def seconds(value):
     return None if value is None or pd.isna(value) else round(value.total_seconds(), 6)
 
 
-@lru_cache(maxsize=12)
 def schedule(year: int):
-    rows = fastf1.get_event_schedule(year, include_testing=False)
+    rows = event_schedule(year)
+    rows = rows[~rows.is_testing()]
     now = datetime.now(timezone.utc)
     events = []
     for _, row in rows.iterrows():
@@ -50,7 +52,7 @@ def schedule(year: int):
 @lru_cache(maxsize=3)
 def get_session(year: int, round_number: int, name: str):
     # Native FastF1 caching avoids repeated downloads. Serialize its mutable sessions.
-    session = fastf1.get_session(year, round_number, name)
+    session = event_schedule(year).get_event_by_round(round_number).get_session(name)
     session.load(laps=True, telemetry=False, weather=False, messages=False)
     if session.results.empty:
         raise ValueError('No participant data is available for this session.')
@@ -61,7 +63,7 @@ def get_session(year: int, round_number: int, name: str):
 def driver_metadata(year: int, round_number: int, name: str):
     """Load participant identity/results without requesting lap or telemetry archives."""
     with DATA_LOCK:
-        session = fastf1.get_session(year, round_number, name)
+        session = event_schedule(year).get_event_by_round(round_number).get_session(name)
         session.load(laps=False, telemetry=False, weather=False, messages=False)
         if session.results.empty:
             raise ValueError('FastF1 participant metadata is unavailable.')

@@ -16,7 +16,7 @@ from pydantic import BaseModel, Field, model_validator
 
 CACHE_DIR = Path(__file__).resolve().parent.parent / '.cache' / 'fastf1'
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
-fastf1.Cache.enable_cache(str(CACHE_DIR))
+fastf1.Cache.configure(cache_dir=str(CACHE_DIR))
 from backend import data, open_data  # noqa: E402
 from backend.analysis import analyze  # noqa: E402
 
